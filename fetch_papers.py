@@ -47,9 +47,20 @@ if __name__ == "__main__":
 
   # parse input arguments
   parser = argparse.ArgumentParser()
+  nonconvex = 'all:nonconvex+OR+all:non-convex'
+  convergence = 'all:convergence'
+  svr = 'all:%22stochastic+variance+reduce%22'
+  langevin = 'all:langevin'
+  bound = 'all:bound'
+  bandit = 'all:bandit'
+  pg = 'all:%22policy+gradient%22'
+  ac = 'all:%22actor+critic%22'
+  gen = 'all:generalization'
+  _or = '+OR+'
   parser.add_argument('--search-query', type=str,
-                      default='cat:cs.CV+OR+cat:cs.AI+OR+cat:cs.LG+OR+cat:cs.CL+OR+cat:cs.NE+OR+cat:stat.ML',
-                      help='query used for arxiv API. See http://arxiv.org/help/api/user-manual#detailed_examples')
+          default='cat:stat.ML+OR+cat:stat.TH+OR+cat:math.OC+OR+cat:cs.LG+AND+%28'+ nonconvex + _or + convergence + _or + svr + _or + langevin + _or
+          + bound + _or + bandit + _or + pg + _or + ac + _or + gen +'%29',
+          help='query used for arxiv API. See http://arxiv.org/help/api/user-manual#detailed_examples')
   parser.add_argument('--start-index', type=int, default=0, help='0 = most recent API result')
   parser.add_argument('--max-index', type=int, default=10000, help='upper bound on paper index we will fetch')
   parser.add_argument('--results-per-iteration', type=int, default=100, help='passed to arxiv API')
